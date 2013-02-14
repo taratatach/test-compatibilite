@@ -11,6 +11,7 @@ RailsApp::Application.routes.draw do
 
   match 'admin/init' => 'admin#init', :via => :get
   match 'admin/stats' => 'admin#stats', :via => :get
+  match 'admin/get_tags_infos' => 'admin#get_tags_infos', :via => :get
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

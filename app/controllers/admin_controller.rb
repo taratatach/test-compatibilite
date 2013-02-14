@@ -1,13 +1,14 @@
 class AdminController < ApplicationController
+  respond_to :html, :json
+
   def init
-    @result = init_words
+    @result = init_concepts
   end
 
   def stats
-
   end
 
-  def init_words
+  def init_concepts
     sparql = SPARQL::Client.new("http://fr.dbpedia.org/sparql")
     result = sparql.query("
         SELECT DISTINCT ?label ?s
@@ -36,5 +37,45 @@ class AdminController < ApplicationController
         data:"+s+" tc:subjectURI <"+uri+">    
     ")
     return result
+  end
+
+  def get_tags_infos
+    concept = params[:concept]
+
+    result = @store.add(@graph, "
+        SELECT DISTINCT ?word_uri ?tag ?count ?nb_others
+        WHERE {
+            GRAPH <http://www.testcompatibilite.fr/Graph> {
+	        ?mot tc:tag ?t.
+	        ?mot skos:prefLabel \""+concept+"\"@fr.
+	        ?mot tc:subjectURI ?word_uri.
+	        ?t tags:name ?tag.
+	        {
+		    SELECT (COUNT(?e) as ?count)
+		    WHERE {
+                        ?mot tc:tag ?e.
+		        ?e tags:name ?tag
+		    }
+       	        }
+       	        {
+       		    SELECT (COUNT(?f) as ?nb_others)
+       		    WHERE {
+                        ?mot tc:tag ?f.
+       		        ?f tags:name ?tag.
+       		        ?f tc:others ?o
+       		        FILTER(xsd:boolean(?o) = \"true\"^^xsd:boolean)
+       		    }
+       	        }
+            }    
+        } ORDER BY DESC(?count)")
+
+    @tags = []
+    result.each do |tag|
+      @tags.push({:concept_uri => tag['word_uri'], :tag_label => tag['tag'], :count => tag['count'].to_i, :others => tag['others'].to_i})
+    end
+
+    respond_with(@tags) do |format|
+      format.json { render :json => @tags}
+    end
   end
 end

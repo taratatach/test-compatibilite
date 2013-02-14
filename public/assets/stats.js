@@ -3,25 +3,26 @@ var dataCandidat = [ { x: 0, y: 0 }, { x: 1, y: 0 }, { x: 2, y: 30 }, { x: 3, y:
 var seriesData = [ dataNormal, dataCandidat ];
 
 document.addEventListener('DOMContentLoaded', function () {
-    var listConcepts = getConcepts();
+    var listConcepts = [];
+    $.get("/jeu/get_concepts.json",function(json){
+	listConcepts = getConcepts(json);
+	render(listConcepts);
+    });
+});
+
+function render(listConcepts) {
     document.querySelector('#concept').textContent = listConcepts[0];
     document.querySelector('#uri').textContent = listConcepts[0];
-    var listDescripteurs = getDescriptors(listConcepts[0]);
+
     var strConceptsList = "";
     for (var i=0;i<listConcepts.length;i++) {
         strConceptsList += '<option>'+listConcepts[i]+'</option>';
     }
     document.querySelector('#listConcepts').innerHTML = strConceptsList;
 
-    var selectConcept = document.getElementById("listConcepts");
-    selectConcept.onchange = function() {
-        var conceptChoisi = this.options[this.selectedIndex];
-        listDescripteurs = getDescriptors(conceptChoisi.value);
-        document.querySelector('#concept').textContent = listConcepts[this.selectedIndex];
-        document.querySelector('#uri').textContent = listConcepts[this.selectedIndex];
-    }
-
-
+    /*
+     * GRAPH
+     */
     var graph = new Rickshaw.Graph( {
         element: document.getElementById("chart"),
         width: 800,
@@ -47,6 +48,59 @@ document.addEventListener('DOMContentLoaded', function () {
         element: document.getElementById('y_axis')
     } );
 
+    var legend = new Rickshaw.Graph.Legend( {
+        element: document.querySelector('#legend'),
+        graph: graph
+    } );
+    // ----------------------------------------------------------
+
+    var listDescripteurs = [];
+    $.ajax({
+	url: "/admin/get_tags_infos.json",
+	type: 'GET',
+	data: {
+	    concept: listConcepts[0]
+	},
+	cache: false,
+	dataType: 'json',
+	success: function(json){
+	    listDescripteurs = json;
+	    renderGraph(listDescripteurs, graph);
+	},
+	error: function(error){
+	}
+    });
+
+    var selectConcept = document.getElementById("listConcepts");
+    selectConcept.onchange = function() {
+        var conceptChoisi = this.options[this.selectedIndex];
+        document.querySelector('#concept').textContent = listConcepts[this.selectedIndex];
+        document.querySelector('#uri').textContent = listConcepts[this.selectedIndex];
+
+	$.ajax({
+	    url: "/admin/get_tags_infos.json",
+	    type: 'GET',
+	    data: {
+		concept: conceptChoisi.value
+	    },
+	    cache: false,
+	    dataType: 'json',
+	    success: function(json){
+		listDescripteurs = json;
+		renderGraph(listDescripteurs, graph);
+	    },
+	    error: function(error){
+	    }
+	});
+    }
+}
+
+// Infos d'un descripteur :
+// listDescripteur[i]['concept_uri']
+// listDescripteur[i]['tag_label']
+// listDescripteur[i]['count']
+// listDescripteur[i]['others'] <-- nombre ici
+function renderGraph(listDescripteurs, graph) {
     var hoverDetail = new Rickshaw.Graph.HoverDetail( {
         graph: graph,
         formatter: function(series, x, y) {
@@ -58,11 +112,5 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     } );
 
-    var legend = new Rickshaw.Graph.Legend( {
-        element: document.querySelector('#legend'),
-        graph: graph
-    } );
-
     graph.render();
-
-});
+}

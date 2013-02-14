@@ -18,26 +18,8 @@ function addDescriptor(labelConcept, labelTag, uriTag, others) {
     });
 }
 
-//récupère toutes versions d'un même descripteur
-function getDescriptorVersions(label) {
-
-}
-
 //récupère tout les descripteurs d'un concept, par count décroissant ! stats YEP
-function getDescriptors(label) {
-    if (label == "cheval") {
-        return ["testA", "testB", "testC"];
-    }
-    if (label == "chat") {
-        return ["copainA", "copainB", "copainC"];
-    }
-    if (label == "mouton") {
-        return ["youpiA", "youpiB", "youpiC"];
-    }
-}
-
-//récupère le dernier descripteur d'un concept
-function getLastDescritorVersion(label) {
+function getDescriptors(json) {
 
 }
 

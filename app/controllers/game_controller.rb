@@ -9,7 +9,6 @@ class GameController < ApplicationController
   end
 
   def fin
-
   end
 
   def get_concepts
@@ -24,7 +23,7 @@ class GameController < ApplicationController
     
     @concepts = []
     result.each do |concept|
-      @concepts.push({:label => concept['label'], :uri => concept['uri'].to_s})
+      @concepts.push({:label => concept['label'], :uri => concept['uri']})
     end
     
     respond_with(@concepts) do |format|
