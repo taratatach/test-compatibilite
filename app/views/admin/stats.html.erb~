@@ -1,0 +1,20 @@
+<%= javascript_include_tag :all, :recursive => true %>
+<div class="container-fluid">
+    <h1 id="titreStats">Retour des utilisateurs</h1>
+    <div class="well" id="bloc">
+        <aside>
+            <p>Mot : <strong id="concept"></strong></p>
+            <p>URI : <i id="uri"></i></p>
+        </aside>
+        <select id="listConcepts">
+        </select>
+    </div>
+    <div id="blocStats">
+        <div id="chart_container">
+            <div id="y_axis"></div>
+            <div id="chart"></div>
+        </div>
+        <div id="legend"></div>
+        <div id="timeline"></div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<%= javascript_include_tag "init" %>
+
+<h1>Initialisation des concepts</h1>
+
+<p><%= @result.count %> concepts insérés dans la base :</p>
+<table>
+  <tr>
+    <td><strong>Label</strong></td>
+    <td><strong>URI dans dbpedia FR</strong></td>
+  </tr>
+  <% @result.each do |concept| %>
+  <tr>
+    <td><%= concept.label.value %></td>
+    <td><%= concept.s.to_s %></td>
+  </tr>
+  <% end %>
+</table>

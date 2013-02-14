@@ -1,0 +1,20 @@
+<%= javascript_include_tag 'triplestore' %>
+<%= javascript_include_tag 'functions' %>
+<div class="container-fluid">
+    <div class="well" id="bloc">
+        <h2 id="theword"></h2>
+        <form id="form-suivant">
+            <input type="text" class="input-xlarge" placeholder="Chose" name="" id="myTextfield" list="valueList" /><br />
+            <datalist id="valueList">
+	      <% @classes.each do |c| %>
+	      <option label="<%= c[:uri] %>" value="<%= c[:label] %>" />
+	      <% end %>
+	    </datalist>
+            <input type="checkbox" id="myCheck" />Je pense qu'il existe une autre solution !
+            <input type="submit" value="OK" id="ok" />
+        </form>
+        <h3 id="compteur"></h3><br />
+        <h4>Règle du jeu : Trouve en UN mot ce qui définit ce mot !</h4>
+        <!--<input type="button" value="reset" onclick="ResetCompteur(); return false;">        -->
+    </div>
+</div>

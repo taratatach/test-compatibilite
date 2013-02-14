@@ -1,0 +1,5 @@
+<%= javascript_include_tag "init" %>
+
+<h1>Initialisation des concepts</h1>
+
+<p><% @count %> concepts insérés dans la base</p>

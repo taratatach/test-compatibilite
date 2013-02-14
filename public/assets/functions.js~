@@ -1,0 +1,134 @@
+
+//ajax("POST", "/SBook/resources/mot/generation", null, function() {
+//    
+//    });
+//ajax("GET", "/SBook/resources/mot", null, function(data) {
+//    alert(data);
+//});
+
+// Ajax call function
+// _method : String, _url : String, _data : , _async : Boolean, _callback : function
+/*function ajax(_method, _url, _data, _async, _callback) {
+    var xhr = null;
+
+    if (window.XMLHttpRequest || window.ActiveXObject) {
+        if (window.ActiveXObject) {
+            try {
+                xhr = new ActiveXObject("Msxml2.XMLHTTP");
+            } catch(e) {
+                xhr = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+        } else {
+            xhr = new XMLHttpRequest();
+        }
+    } else {
+        alert("Votre navigateur ne supporte pas l'objet XMLHTTPRequest...");
+        return null;
+    }
+
+    xhr.onreadystatechange  = function()
+    {
+        if(xhr.readyState  == 4)
+        {
+            if(xhr.status  == 200 || xhr.status  == 0) {
+                _callback.call(xhr);
+            }
+            else
+                alert("La requête ne s'est pas déroulé comme prévu...");
+        }
+    };
+
+    xhr.open(_method, _url, _async);
+
+    if (_method == 'GET') {
+        _data = null;
+    }
+
+    xhr.send(_data);
+}    */
+
+//Variables
+var listConcepts = [];
+var cpt = 0;
+var uriConcept = "uri";
+
+//fin chargement de la page
+document.addEventListener('DOMContentLoaded', function () {
+    Init();
+
+    //click ok
+    document.querySelector('#form-suivant').onsubmit = function (e) {
+        e.preventDefault();
+        if (cpt >= listConcepts.length) {
+            finJeu();
+            document.location.href='fin.html';
+        }
+        else {
+            changerConcept();
+        }
+    };
+});
+
+function finJeu() {
+
+}
+//A chaque nouveau concept
+function changerConcept() {
+    var label = document.querySelector('#myTextfield').value != "" ? document.querySelector('#myTextfield').value : "Chose";
+    var uri = getUriFromName(label);
+    var others = document.getElementById('myCheck').checked == 'checked';
+    addDescriptor(listConcepts[cpt], label, uri, others);
+    document.querySelector('#theword').textContent = listConcepts[cpt];
+    cpt++;
+    document.getElementById('myCheck').checked = false;
+    document.getElementById('myTextfield').value = "";
+    ResetCompteur();
+}
+
+function getUriFromName(name) {
+    var options = document.getElementsByTagName('option');
+    for(var i=0; i<options.size; ++i)
+	if (options[i].value == name)
+	    return options[i].getAttribute('label');
+    return '';	    
+}
+
+//initialisation
+function Init()	{
+    var listConcepts = []
+    getConcepts(listConcepts);
+    document.querySelector('#theword').textContent = listConcepts[cpt];
+    cpt++;
+
+    InitCompteRebours();
+}
+
+//Compte à rebours
+var tempsMax = 30;
+var tempsRestant = tempsMax;
+var x;
+
+function InitCompteRebours()	{
+    window.document.getElementById('compteur').innerHTML=tempsRestant;
+    x = window.setInterval('Decompte()', 1000);
+}
+
+function Decompte()	{
+    if (tempsRestant > 0) {
+        window.document.getElementById('compteur').innerHTML = --tempsRestant;
+    }
+    else {
+        if (cpt >= listConcepts.length) {
+            document.location.href='fin.html';
+        }
+        else {
+            changerConcept();
+        }
+    }
+}
+
+function ResetCompteur()	{
+    tempsRestant = tempsMax;
+    window.clearInterval(x);
+    InitCompteRebours();
+}

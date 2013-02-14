@@ -1,0 +1,21 @@
+<script src="http://connect.facebook.net/fr_FR/all.js"></script>
+<script language="javascript" type="text/javascript">
+  FB.init({
+  appId: 454359361303526,
+  xfbml: true,
+  cookie: true,
+  oauth: true
+  });
+</script>
+<div id="fb-root">
+  <fb:login-button autologoutlink="true" onlogin="OnRequestPermission();" scope="user_about_me">
+  </fb:login-button>
+</div >
+<div class="container-fluid">
+    <div class="well" id="bloc">
+        <h1 id="titre">Test de Compatibilite</h1>
+        <h3>Voici un petit jeu très simple<br />qui te prendra juste 5 min de ton temps !</h3>
+        <h4>On te donne un mot. Le but ? Trouver un autre mot qui le définit.</h4>
+        <div id="boutonJeu"><button class="btn btn-large btn-primary"><a id="lienJeu" href="/jeu/debut">C'est parti !</a></button></div>
+    </div>
+</div>

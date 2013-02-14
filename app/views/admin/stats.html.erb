@@ -1,0 +1,30 @@
+<%= stylesheet_link_tag 'rickshaw/src/css/graph' %>
+<%= stylesheet_link_tag 'rickshaw/src/css/legend' %>
+<%= stylesheet_link_tag 'rickshaw/src/css/detail' %>
+<%= stylesheet_link_tag 'rickshaw/examples/css/extensions' %>
+<%= stylesheet_link_tag 'stats' %>
+<%= javascript_include_tag 'rickshaw/vendor/d3.v2' %>
+<%= javascript_include_tag 'rickshaw/vendor/d3.layout.min' %>
+<%= javascript_include_tag 'rickshaw/rickshaw.min' %>
+<%= javascript_include_tag 'triplestore' %>
+<%= javascript_include_tag 'functions' %>
+<%= javascript_include_tag 'stats' %>
+<div class="container-fluid">
+    <h1 id="titreStats">Retour des utilisateurs</h1>
+    <div class="well" id="bloc">
+        <aside>
+            <p>Mot : <strong id="concept"></strong></p>
+            <p>URI : <i id="uri"></i></p>
+        </aside>
+        <select id="listConcepts">
+        </select>
+    </div>
+    <div id="blocStats">
+        <div id="chart_container">
+            <div id="y_axis"></div>
+            <div id="chart"></div>
+        </div>
+        <div id="legend"></div>
+        <div id="timeline"></div>
+    </div>
+</div>
