@@ -8,7 +8,8 @@ gem 'rails', '3.2.9'
 gem "rest-client", "~> 1.6.7"
 gem "nokogiri", "~> 1.5.0"
 
-gem "ppe-4store-ruby", "~> 0.0.3"
+#gem "ppe-4store-ruby", "~> 0.0.3"
+gem '4store-ruby'
 gem 'sparql-client'
 gem 'jquery-rails'
 gem 'therubyracer'
