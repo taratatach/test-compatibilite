@@ -9,7 +9,7 @@ gem "rest-client", "~> 1.6.7"
 gem "nokogiri", "~> 1.5.0"
 
 #gem "ppe-4store-ruby", "~> 0.0.3"
-gem '4store-ruby'
+gem '4store-ruby', :git => 'git://github.com/moustaki/4store-ruby.git'
 gem 'sparql-client'
 gem 'jquery-rails'
 gem 'therubyracer'

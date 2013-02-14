@@ -1,7 +1,12 @@
+GIT
+  remote: git://github.com/moustaki/4store-ruby.git
+  revision: ecc24b3ddf480942423e7809771cc02d4e473f78
+  specs:
+    4store-ruby (0.0.4)
+
 GEM
   remote: https://rubygems.org/
   specs:
-    4store-ruby (0.0.4)
     actionmailer (3.2.9)
       actionpack (= 3.2.9)
       mail (~> 2.4.4)
@@ -62,7 +67,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.21)
-    multi_json (1.6.0)
+    multi_json (1.6.1)
     net-http-persistent (2.8)
     nokogiri (1.5.6)
     polyglot (0.3.3)
@@ -131,7 +136,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  4store-ruby
+  4store-ruby!
   coffee-rails (~> 3.2.1)
   jquery-rails
   less-rails
