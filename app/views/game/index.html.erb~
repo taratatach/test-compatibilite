@@ -1,8 +1,0 @@
-<div class="container-fluid">
-    <div class="well" id="bloc">
-        <h1 id="titre">Test de Compatibilite</h1>
-        <h3>Voici un petit jeu très simple<br />qui te prendra juste 5 min de ton temps !</h3>
-        <h4>On te donne un mot. Le but ? Trouver un autre mot qui le définit.</h4>
-        <div id="boutonJeu"><button class="btn btn-large btn-primary"><a id="lienJeu" href="/jeu/debut">C'est parti !</a></button></div>
-    </div>
-</div>

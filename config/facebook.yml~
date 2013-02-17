@@ -1,9 +1,0 @@
-development: &defaults
-  client_id: 454359361303526
-  client_secret: 8248354649e5116eb86197bf640ae3f9
-  scope: user_about_me
-  canvas_url: http://apps.facebook.com/test_compat/
-test:
-  <<: *defaults
-production:
-  <<: *defaults

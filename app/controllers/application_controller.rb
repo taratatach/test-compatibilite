@@ -7,10 +7,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   def initialize
-    # @endpoint = 'http://localhost:8000/sparql/'
+    @endpoint = 'http://localhost:8000/sparql/'
 
     # production options
-    @endpoint = 'http://zouig.org:8000/sparql/'
+    # @endpoint = 'http://zouig.org:8000/sparql/'
     
     @graph = 'http://www.testcompatibilite.fr/Graph'
     
