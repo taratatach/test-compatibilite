@@ -9,7 +9,7 @@ RailsApp::Application.routes.draw do
   match 'jeu/get_concepts' => 'game#get_concepts', :via => :get
   match 'jeu/add_tag' => 'game#add_tag', :via => :post
 
-  match 'admin/init' => 'admin#init', :via => :get
+  # match 'admin/init' => 'admin#init', :via => :get
   match 'admin/stats' => 'admin#stats', :via => :get
   match 'admin/get_tags_infos' => 'admin#get_tags_infos', :via => :get
 
