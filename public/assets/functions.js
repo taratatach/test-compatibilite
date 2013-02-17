@@ -28,7 +28,7 @@ function changerConcept() {
     var label = document.querySelector('#myTextfield').value != "" ? document.querySelector('#myTextfield').value : "Chose";
     var uri = getUriFromName(label);
     var others = document.getElementById('myCheck').checked;
-    addDescriptor(listConcepts[cpt], label, uri, others);
+    addDescriptor(listConcepts[cpt-1], label, uri, others);
     document.querySelector('#theword').textContent = listConcepts[cpt];
     cpt++;
     document.getElementById('myCheck').checked = false;
