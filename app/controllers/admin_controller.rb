@@ -18,7 +18,9 @@ class AdminController < ApplicationController
             MINUS {
       	        ?s rdf:type _:other.
             }
-        } LIMIT 20")
+        } 
+        OFFSET 20
+        LIMIT 20")
 
     result.each do |term|
       add_concept term.label.value, term.s.to_s
@@ -43,7 +45,7 @@ class AdminController < ApplicationController
     concept = params[:concept]
 
     result = @store.add(@graph, "
-        SELECT DISTINCT ?word_uri ?tag ?count ?nb_others
+        SELECT DISTINCT ?tag ?count ?nb_others
         WHERE {
             GRAPH <http://www.testcompatibilite.fr/Graph> {
 	        ?mot tc:tag ?t.
@@ -71,7 +73,7 @@ class AdminController < ApplicationController
 
     @tags = []
     result.each do |tag|
-      @tags.push({:concept_uri => tag['word_uri'], :tag_label => tag['tag'], :count => tag['count'].to_i, :others => tag['others'].to_i})
+      @tags.push({:tag_label => tag['tag'], :count => tag['count'].to_i, :others => tag['others'].to_i})
     end
 
     respond_with(@tags) do |format|

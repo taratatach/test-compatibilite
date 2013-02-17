@@ -96,7 +96,6 @@ function render(listConcepts) {
 }
 
 // Infos d'un descripteur :
-// listDescripteur[i]['concept_uri']
 // listDescripteur[i]['tag_label']
 // listDescripteur[i]['count']
 // listDescripteur[i]['others'] <-- nombre ici
