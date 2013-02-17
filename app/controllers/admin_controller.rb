@@ -44,36 +44,26 @@ class AdminController < ApplicationController
   def get_tags_infos
     concept = params[:concept]
 
-    result = @store.add(@graph, "
-        SELECT DISTINCT ?tag ?count ?nb_others
+    result = @store.select("
+        SELECT ?tag (count(?tag) as ?count) (count(?o) as ?nb_others)
         WHERE {
             GRAPH <http://www.testcompatibilite.fr/Graph> {
-	        ?mot tc:tag ?t.
-	        ?mot skos:prefLabel \""+concept+"\"@fr.
-	        ?mot tc:subjectURI ?word_uri.
-	        ?t tags:name ?tag.
-	        {
-		    SELECT (COUNT(?e) as ?count)
-		    WHERE {
-                        ?mot tc:tag ?e.
-		        ?e tags:name ?tag
-		    }
-       	        }
-       	        {
-       		    SELECT (COUNT(?f) as ?nb_others)
-       		    WHERE {
-                        ?mot tc:tag ?f.
-       		        ?f tags:name ?tag.
-       		        ?f tc:others ?o
-       		        FILTER(xsd:boolean(?o) = \"true\"^^xsd:boolean)
-       		    }
-       	        }
+                ?mot tc:tag ?t.
+                ?mot skos:prefLabel \""+concept+"\"@fr.
+                ?mot tc:subjectURI ?word_uri.
+                ?t tags:name ?tag.
+                OPTIONAL {
+                    ?t tc:others ?o.
+		    FILTER(xsd:boolean(?o) = \"true\"^^xsd:boolean)
+                }
             }    
-        } ORDER BY DESC(?count)")
+        }
+        GROUP BY ?tag
+        ORDER BY DESC(?count)")
 
     @tags = []
     result.each do |tag|
-      @tags.push({:tag_label => tag['tag'], :count => tag['count'].to_i, :others => tag['others'].to_i})
+      @tags.push({:tag_label => tag['tag'], :count => tag['count'].to_i, :others => tag['nb_others'].to_i})
     end
 
     respond_with(@tags) do |format|
