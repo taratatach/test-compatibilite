@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
         e.preventDefault();
         if (cpt >= listConcepts.length) {
             finJeu();
-            document.location.href='fin.html';
+            document.location.href='/jeu/fin';
         }
         else {
             changerConcept();
@@ -48,7 +48,7 @@ function getUriFromName(name) {
 function Init()	{
     $.get("/jeu/get_concepts.json",function(json){
 	listConcepts = getConcepts(json);
-	document.querySelector('#theword').textContent = listConcepts[cpt];
+	document.querySelector('#theword').textContent = listConcepts[cpt++];
 	InitCompteRebours();
     });
 }
